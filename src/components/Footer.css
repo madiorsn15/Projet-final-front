@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ── Fix bande blanche : force le bg sombre partout ── */
+.home-page {
+  background: #0B1B14;
+}
+.why-sunu-container {
+  background: #0B1B14;
+}
+
+.footer {
+  background: #0B1B14; /* ← était #2F2F2F */
+  color: rgba(255, 255, 255, 0.55);
+  padding: 3.5rem 0 0;
+  margin-top: auto;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  border-top: none; /* ← supprimé, remplacé par la bande wax ci-dessous */
+  position: relative;
+}
+
+/* Bande décorative wax orange/vert en haut du footer */
+.footer::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #E8621A 0px,  #E8621A 80px,
+    #1A3A22 80px, #1A3A22 160px
+  );
+}
+
+.footer-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── Colonne marque ─── */
+.footer-section:first-child h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.footer-section:first-child h3 span {
+  color: #F5874A;
+}
+
+.footer-section:first-child p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 240px;
+  margin-bottom: 1.25rem;
+}
+
+.footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F5874A;
+  background: rgba(232, 98, 26, 0.12);
+  border: 1px solid rgba(232, 98, 26, 0.25);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+}
+
+/* ─── Colonnes liens ─── */
+.footer-section h4 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #E8621A; /* ← était rgba(255,255,255,0.4), maintenant orange */
+  margin-bottom: 1.1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.65rem;
+}
+
+.footer-section ul li a {
+  color: #4A7A52; /* ← était rgba(255,255,255,0.6), maintenant vert muted */
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: color 0.2s;
+  display: inline-block;
+}
+
+.footer-section ul li a:hover {
+  color: white;
+}
+
+/* ─── Bas du footer ─── */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-bottom-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #25D366; /* ← était rgba(255,255,255,0.35), maintenant vert WhatsApp */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-bottom-whatsapp:hover {
+  color: #4ADE80;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .footer-section:first-child p {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

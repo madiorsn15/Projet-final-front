@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
+
+.navbar {
+  background: #0B1B14;
+  color: #FFFFFF;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.navbar-logo-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.navbar-logo-text span {
+  color: #E8621A;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-link {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: #E8621A;
+}
+
+.navbar-btn-outline {
+  border: 2px solid #E8621A;
+  color: #E8621A;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.navbar-btn-outline:hover {
+  background: #E8621A;
+  color: #FFFFFF;
+}
+
+.navbar-btn-fill {
+  background: #FFFFFF;
+  color: #0B1B14;
+  border: 2px solid #FFFFFF;
+  padding: 0.6rem 1.5rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.navbar-btn-fill:hover {
+  background: transparent;
+  color: #FFFFFF;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+.navbar-logout-btn {
+  background: transparent;
+  color: #FCA5A5;
+  border: 1px solid #EF4444;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.navbar-logout-btn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none; /* Simplification pour le moment, on pourrait ajouter un menu burger */
+  }
+}
