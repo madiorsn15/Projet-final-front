@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import './Navbar.css?v=20';
+import './Navbar.css';
 
 const ShopLogo = () => (
   <svg width="36" height="36" viewBox="0 0 110 132" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -34,10 +34,14 @@ const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
+      setIsMobileMenuOpen(false);
       const result = await logout();
       if (!result.success) {
         toast.error(`${result.error}. La session locale a tout de même été fermée.`);
@@ -48,17 +52,45 @@ const Navbar = () => {
     }
   };
 
-  /* Dashboard selon le rôle */
   const getDashboardLink = () => {
     if (!user) return '/dashboard';
     if (user.role === 'admin') return '/admin';
     return '/dashboard';
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current && 
+        !menuRef.current.contains(event.target) && 
+        hamburgerRef.current && 
+        !hamburgerRef.current.contains(event.target)
+      ) {
+        closeMobileMenu();
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
           <ShopLogo />
           <span className="navbar-logo-text">Sunu<span>Marché</span></span>
         </Link>
@@ -67,7 +99,6 @@ const Navbar = () => {
           <Link to="/products" className="navbar-link">Produits</Link>
 
           {isAuthenticated ? (
-            /* ── Utilisateur connecté ── */
             <>
               <Link to="/favorites"           className="navbar-link">Favoris</Link>
               <Link to={getDashboardLink()}   className="navbar-link">Dashboard</Link>
@@ -81,10 +112,83 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            /* ── Utilisateur non connecté ── */
             <>
               <Link to="/register" className="navbar-btn-outline">Vendre gratuitement</Link>
               <Link to="/login"    className="navbar-btn-fill">Connexion</Link>
+            </>
+          )}
+        </div>
+
+        <button
+          ref={hamburgerRef}
+          className="navbar-hamburger"
+          onClick={toggleMobileMenu}
+          aria-label="Menu"
+        >
+          <span className={isMobileMenuOpen ? 'hamburger-line active' : 'hamburger-line'}></span>
+          <span className={isMobileMenuOpen ? 'hamburger-line active' : 'hamburger-line'}></span>
+          <span className={isMobileMenuOpen ? 'hamburger-line active' : 'hamburger-line'}></span>
+        </button>
+      </div>
+
+      <div
+        ref={menuRef}
+        className={`navbar-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}
+      >
+        <div className="navbar-mobile-menu-content">
+          <Link 
+            to="/products" 
+            className="navbar-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            Produits
+          </Link>
+
+          {isAuthenticated ? (
+            <>
+              <Link 
+                to="/favorites" 
+                className="navbar-mobile-link"
+                onClick={closeMobileMenu}
+              >
+                Favoris
+              </Link>
+              <Link 
+                to={getDashboardLink()} 
+                className="navbar-mobile-link"
+                onClick={closeMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <div className="navbar-mobile-user">
+                <span className="navbar-mobile-user-name">
+                  {user?.name || user?.email}
+                </span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="navbar-mobile-logout"
+                disabled={isLoggingOut}
+              >
+                {isLoggingOut ? 'Déconnexion...' : 'Déconnexion'}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/register" 
+                className="navbar-mobile-btn-outline"
+                onClick={closeMobileMenu}
+              >
+                Vendre gratuitement
+              </Link>
+              <Link 
+                to="/login" 
+                className="navbar-mobile-btn-fill"
+                onClick={closeMobileMenu}
+              >
+                Connexion
+              </Link>
             </>
           )}
         </div>
