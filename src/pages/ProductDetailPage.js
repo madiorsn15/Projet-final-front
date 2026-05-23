@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useFavorites } from '../context/FavoritesContext';
 import api, { API_BASE_URL } from '../utils/api';
 import toast from 'react-hot-toast';
+import ReviewForm from '../components/ReviewForm';
+import ReviewList from '../components/ReviewList';
 import './ProductDetailPage.css';
 
 const ProductDetailPage = () => {
@@ -17,6 +19,9 @@ const ProductDetailPage = () => {
   const [contactLoading, setContactLoading] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [reviewsStats, setReviewsStats] = useState({ averageRating: 0, count: 0 });
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   const isOwner = isAuthenticated && product && user?._id === product.seller?._id;
 
@@ -27,6 +32,28 @@ const ProductDetailPage = () => {
   useEffect(() => {
     if (product) loadRelatedProducts();
   }, [product]);
+
+  useEffect(() => {
+    if (product) loadReviews();
+  }, [product]);
+
+  const loadReviews = async () => {
+    try {
+      setReviewsLoading(true);
+      const response = await api.get(`/reviews/product/${product._id}`);
+      setReviews(response.data.reviews || []);
+      setReviewsStats(response.data.stats || { averageRating: 0, count: 0 });
+    } catch (error) {
+      console.error('Erreur chargement avis:', error);
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
+
+  const handleReviewCreated = (newReview) => {
+    setReviews([newReview, ...reviews]);
+    loadReviews();
+  };
 
   const loadRelatedProducts = async () => {
     if (!product?.category) return;
@@ -302,6 +329,22 @@ const ProductDetailPage = () => {
               )}
             </div>
           </div>
+        </div>
+
+        {/* ── Avis et notes ── */}
+        <div className="reviews-section">
+          <h2>Avis et notes</h2>
+          {reviewsLoading ? (
+            <div className="reviews-loading">
+              <div className="spinner-small"></div>
+              <p>Chargement des avis...</p>
+            </div>
+          ) : (
+            <>
+              <ReviewForm productId={product._id} onReviewCreated={handleReviewCreated} />
+              <ReviewList reviews={reviews} stats={reviewsStats} />
+            </>
+          )}
         </div>
 
         {/* ── Produits similaires ── */}

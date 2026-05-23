@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+.review-list-container {
+  background: #132B21;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 2rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.review-list-empty {
+  text-align: center;
+  padding: 2rem;
+}
+
+.review-list-empty p {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95rem;
+}
+
+.review-list-header {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.review-list-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.review-list-average {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.review-list-average-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.review-list-stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.review-list-star {
+  font-size: 1.3rem;
+}
+
+.review-list-star.filled {
+  color: #E8621A;
+}
+
+.review-list-star.empty {
+  color: rgba(255,255,255,0.15);
+}
+
+.review-list-count {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+}
+
+.review-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-list-item {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+}
+
+.review-list-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-list-item-user {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.review-list-item-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E8621A 0%, #B84D10 100%);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.review-list-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.review-list-item-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.review-list-item-date {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.review-list-item-rating {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.review-list-item-comment {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .review-list-container {
+    padding: 1.5rem;
+  }
+
+  .review-list-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .review-list-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .review-list-average-number {
+    font-size: 2.25rem;
+  }
+
+  .review-list-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
